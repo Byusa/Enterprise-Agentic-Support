@@ -2,6 +2,7 @@ from langgraph.graph import StateGraph, START, END
 
 from app.database import SessionLocal
 from app.intent import classify_intent
+from app.reasoning import determine_resolution
 from app.state import SupportState
 from app.tools import get_customer, get_transactions
 
@@ -54,7 +55,23 @@ def load_transactions_node(state: SupportState) -> dict:
         db.close()
 
 
+def reason_node(state: SupportState) -> dict:
+    result = determine_resolution(
+        message=state["message"],
+        intent=state["intent"],
+        customer=state.get("customer"),
+        transactions=state.get("transactions", []),
+    )
+
+    return {
+        "action": result.action,
+        "reason": result.reason,
+        "requires_approval": result.requires_approval,
+    }
+
+
 builder = StateGraph(SupportState)
+
 
 builder.add_node(
     "classify_intent",
@@ -70,6 +87,12 @@ builder.add_node(
     "load_transactions",
     load_transactions_node,
 )
+
+builder.add_node(
+    "reason",
+    reason_node,
+)
+
 
 builder.add_edge(
     START,
@@ -88,7 +111,13 @@ builder.add_edge(
 
 builder.add_edge(
     "load_transactions",
+    "reason",
+)
+
+builder.add_edge(
+    "reason",
     END,
 )
+
 
 support_graph = builder.compile()

@@ -3,11 +3,6 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
-class SupportRequest(BaseModel):
-    customer_id: str
-    message: str = Field(min_length=1)
-
-
 class IntentResult(BaseModel):
     intent: Literal[
         "billing_issue",
@@ -16,11 +11,7 @@ class IntentResult(BaseModel):
         "account_issue",
         "unknown",
     ]
-
-    confidence: float = Field(
-        ge=0.0,
-        le=1.0,
-    )
+    confidence: float = Field(ge=0.0, le=1.0)
 
 
 class ResolutionDecision(BaseModel):
@@ -30,14 +21,5 @@ class ResolutionDecision(BaseModel):
         "escalate",
         "no_action",
     ]
-
-    reason: str
-    requires_approval: bool
-
-
-class SupportResponse(BaseModel):
-    intent: str
-    confidence: float
-    action: str
     reason: str
     requires_approval: bool
