@@ -1,4 +1,4 @@
-# Vrize Agentic Support
+# Enterprise Agentic Support
 
 A production-style **agentic AI customer support system** built to demonstrate enterprise GenAI architecture patterns including structured LLM outputs, LangGraph orchestration, PostgreSQL-backed tools, deterministic validation, RAG, MCP, human-in-the-loop workflows, evaluations, and observability.
 
@@ -163,7 +163,7 @@ Planned additions:
 ## Project Structure
 
 ```text
-vrize-agentic-support/
+Enterprise-agentic-support/
 │
 ├── app/
 │   ├── __init__.py
