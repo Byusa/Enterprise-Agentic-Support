@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
 
+from app.llm import get_chat_model
 from app.schemas import ResolutionDecision
 
 load_dotenv()
@@ -23,10 +23,7 @@ Rules:
 - Return only the structured result required by the schema.
 """
 
-llm = ChatOpenAI(
-    model="gpt-4.1-mini",
-    temperature=0,
-)
+llm = get_chat_model()
 
 reasoning_llm = llm.with_structured_output(ResolutionDecision)
 

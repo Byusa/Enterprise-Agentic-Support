@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
 
+from app.llm import get_chat_model
 from app.schemas import IntentResult
 
 load_dotenv()
@@ -19,10 +19,7 @@ Classify the customer's primary intent into exactly one of these categories:
 Return only the structured result required by the schema.
 """
 
-llm = ChatOpenAI(
-    model="gpt-4.1-mini",
-    temperature=0,
-)
+llm = get_chat_model()
 
 intent_classifier = llm.with_structured_output(IntentResult)
 

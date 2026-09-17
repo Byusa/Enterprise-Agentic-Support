@@ -1,4 +1,7 @@
-from typing import TypedDict
+from typing import Annotated, TypedDict
+
+from langchain_core.messages import AnyMessage
+from langgraph.graph.message import add_messages
 
 
 class SupportState(TypedDict, total=False):
@@ -10,6 +13,9 @@ class SupportState(TypedDict, total=False):
     intent: str
     intent_confidence: float
 
+    # Agent tool-calling scratchpad
+    messages: Annotated[list[AnyMessage], add_messages]
+
     # Enterprise data
     customer: dict
     transactions: list[dict]
@@ -18,6 +24,9 @@ class SupportState(TypedDict, total=False):
     action: str
     reason: str
     requires_approval: bool
+
+    # Deterministic routing outcome
+    status: str
 
     # Error handling
     error: str | None
