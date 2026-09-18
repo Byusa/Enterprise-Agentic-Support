@@ -12,6 +12,7 @@ httpcore2==2.12.0
 httpx==0.28.1
 httpx2==2.12.0
 idna==3.19
+iniconfig==2.3.0
 jiter==0.16.0
 jsonpatch==1.33
 jsonpointer==3.1.1
@@ -27,10 +28,13 @@ openai==3.5.0
 orjson==3.12.0
 ormsgpack==1.12.2
 packaging==26.3
+pluggy==1.6.0
 psycopg==3.3.4
 psycopg-binary==3.3.4
 pydantic==2.13.4
 pydantic_core==2.46.4
+pygments==2.21.0
+pytest==9.1.1
 python-dotenv==1.2.3
 PyYAML==6.0.3
 regex==2026.7.19
